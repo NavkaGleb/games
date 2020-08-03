@@ -1,8 +1,34 @@
-//
-// Created by navka on 8/3/2020.
-//
+#pragma once
 
-#ifndef SNAKE_STATUSBAR_HPP
-#define SNAKE_STATUSBAR_HPP
+#include <SFML/Graphics.hpp>
 
-#endif //SNAKE_STATUSBAR_HPP
+namespace ng {
+
+	class StatusBar {
+	public:
+		// constructor / destructor
+		StatusBar(float x, float y, float width, float height, sf::Color backgroundColor, sf::Color statusColor);
+		virtual ~StatusBar();
+
+		// accessors
+		[[nodiscard]] const bool& active() const;
+
+		// modifiers
+		void active(const bool& active);
+
+		// public methods
+		void update(const float& value);
+		void render(sf::RenderTarget& target);
+
+	private:
+		// variables
+		sf::RectangleShape _background;
+		sf::RectangleShape _status;
+		bool _active;
+
+		// private methods
+
+
+	}; // class StatusBar
+
+} // namespace ng

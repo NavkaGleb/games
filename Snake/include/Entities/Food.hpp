@@ -16,6 +16,7 @@ namespace ng {
 		[[nodiscard]] sf::FloatRect getGlobalBounds() const;
 		[[nodiscard]] float radius() const;
 		[[nodiscard]] const bool& active() const;
+		[[nodiscard]] float life() const;
 
 		// modifiers
 		void setPosition(const sf::Vector2f& position);

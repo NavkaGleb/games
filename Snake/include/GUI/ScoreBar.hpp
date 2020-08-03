@@ -1,8 +1,26 @@
-//
-// Created by navka on 8/3/2020.
-//
+#pragma once
 
-#ifndef SNAKE_SCOREBAR_HPP
-#define SNAKE_SCOREBAR_HPP
+#include <SFML/Graphics.hpp>
 
-#endif //SNAKE_SCOREBAR_HPP
+namespace ng {
+
+	class ScoreBar {
+	public:
+		// constructor / destructor
+		ScoreBar(float x, float y, sf::Font& font, unsigned characterSize, sf::Color color);
+		virtual ~ScoreBar();
+
+		// public methods
+		void update(const int& score);
+		void render(sf::RenderTarget& target);
+
+	private:
+		// variables
+		sf::Font& _font;
+		sf::Text _text;
+
+		// private methods
+
+	}; // class ScoreBar
+
+} // namespace ng

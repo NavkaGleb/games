@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="BuildServerSettings">
+    <option name="LOGIN" value="" />
+    <option name="SERVER_URL" value="" />
+    <option name="COMMIT_PATTERN" value="{message}" />
+    <option name="REMEMBER_ME" value="true" />
+    <option name="USE_IDEA_PROXY_SETTINGS" value="true" />
+    <option name="INSPECTIONS_BUILD_TYPE_IDS" />
+    <option name="DUPLICATES_BUILD_TYPE_IDS" />
+    <option name="ENABLE_SUITABLE_CONFIGURATION_CACHING" value="true" />
+    <option name="COVERAGE_SETTINGS" />
+    <option name="TEST_STATUS_ENABLED" value="true" />
+    <option name="TEST_STATUS_SHOW_SUCCESSFUL" value="false" />
+    <option name="POSTPONE_SUITABLE_CONFIGURATIONS_SEARCH" value="false" />
+    <option name="ARTIFACTS_BUILD_TYPE_IDS" />
+    <option name="PERFORM_COMMIT_IF_SUCCESSFUL" value="true" />
+    <option name="PERFORM_COMMIT_IF_NO_NEW_FAILED_TESTS" value="false" />
+    <option name="REQUEST_CONFIRMATON" value="false" />
+    <option name="PRE_TESTED_COMMIT" value="true" />
+    <option name="FILTER_BY_STATUS" value="false" />
+    <option name="FILTER_MARKED_AS_FIXED" value="false" />
+    <option name="TOOL_WINDOW_SELECTED_CONTENT_INDEX" value="0" />
+  </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="snake" targetName="snake" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8b719045-5859-4fa9-a208-ea7e9030d208" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/score_bar.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/score_bar.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Clock/Clock.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/Clock/Clock.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Entities/Food.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/Entities/Food.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/GUI/Button.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/GUI/Button.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/GUI/GUI.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/GUI/GUI.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/GUI/ScoreBar.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/GUI/ScoreBar.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/GUI/StatusBar.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/GUI/StatusBar.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/States/GameState.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/States/GameState.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Clock/Clock.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Clock/Clock.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/Food.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Food.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GUI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUI.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/ScoreBar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ScoreBar.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/StatusBar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/StatusBar.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/GameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/GameState.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1eAcn0tv6cEtEjrYY6VyTzmfARi" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/CMakeLists.txt" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C/C++" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Documents\it\clion_projects\games\Snake\src\GUI" />
+      <recent name="D:\Documents\it\clion_projects\summer_projects\Snake\include\Clock" />
+      <recent name="D:\Documents\it\clion_projects\summer_projects\Snake\src" />
+      <recent name="D:\Documents\it\clion_projects\summer_projects\Test\src" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="snake" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="snake" TARGET_NAME="snake" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="snake" RUN_TARGET_NAME="snake">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8b719045-5859-4fa9-a208-ea7e9030d208" name="Default Changelist" comment="" />
+      <created>1593768000728</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1593768000728</updated>
+      <workItem from="1593768002133" duration="562000" />
+      <workItem from="1593768565550" duration="12835000" />
+      <workItem from="1593853068257" duration="17296000" />
+      <workItem from="1594387995350" duration="2387000" />
+      <workItem from="1595241175048" duration="2489000" />
+      <workItem from="1596123806231" duration="33829000" />
+      <workItem from="1596364358843" duration="8074000" />
+      <workItem from="1596458221681" duration="554000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.ini" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="676" y="303" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1596131515395">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="676" y="303" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1596131515395" />
+    <state x="687" y="216" key="FileChooserDialogImpl" timestamp="1596365713129">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="687" y="216" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1596365713129" />
+    <state width="1550" height="171" key="GridCell.Tab.0.bottom" timestamp="1596458774802">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1550" height="171" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596458774802" />
+    <state width="1550" height="171" key="GridCell.Tab.0.center" timestamp="1596458774801">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1550" height="171" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596458774801" />
+    <state width="1550" height="171" key="GridCell.Tab.0.left" timestamp="1596458774801">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1550" height="171" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596458774801" />
+    <state width="1550" height="171" key="GridCell.Tab.0.right" timestamp="1596458774801">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1550" height="171" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596458774801" />
+    <state width="1529" height="331" key="GridCell.Tab.1.bottom" timestamp="1596458161556">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1529" height="331" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1596458161556" />
+    <state width="1529" height="331" key="GridCell.Tab.1.center" timestamp="1596458161556">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1529" height="331" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1596458161556" />
+    <state width="1529" height="331" key="GridCell.Tab.1.left" timestamp="1596458161556">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1529" height="331" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1596458161556" />
+    <state width="1529" height="331" key="GridCell.Tab.1.right" timestamp="1596458161556">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1529" height="331" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1596458161556" />
+    <state x="532" y="237" key="run.anything.popup" timestamp="1593887687373">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="532" y="237" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593887687373" />
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1596457949125">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1596457949125" />
+  </component>
+</project>

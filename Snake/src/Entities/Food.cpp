@@ -22,9 +22,11 @@ namespace ng {
 	// accessors
 	sf::FloatRect Food::getGlobalBounds() const { return this->_shape->getGlobalBounds(); }
 
+	float Food::radius() const { return this->_shape->getRadius(); }
+
 	const bool& Food::active() const { return this->_active; }
 
-	float Food::radius() const { return this->_shape->getRadius(); }
+	float Food::life() const { return this->_lifeClock ? 1.f - this->_lifeClock->currentTime() / this->_lifeClock->maxTime() : 1.f; }
 
 	// modifiers
 	void Food::setPosition(const sf::Vector2f& position) { this->_shape->setPosition(position); }

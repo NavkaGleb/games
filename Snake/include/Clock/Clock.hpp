@@ -9,6 +9,8 @@ namespace ng {
 		virtual ~Clock() = default;
 
 		// accessors
+		[[nodiscard]] const float& currentTime() const;
+		[[nodiscard]] const float& maxTime() const;
 		[[nodiscard]] bool getTime();
 		[[nodiscard]] bool final() const;
 

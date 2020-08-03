@@ -1,8 +1,28 @@
-//
-// Created by navka on 8/3/2020.
-//
+#pragma once
 
-#ifndef SNAKE_BUTTON_HPP
-#define SNAKE_BUTTON_HPP
+#include <map>
+#include <string>
 
-#endif //SNAKE_BUTTON_HPP
+#include <SFML/Graphics.hpp>
+
+namespace ng {
+
+	class Button {
+	public:
+		// constructor / destructor
+		Button(float x, float y, float width, float height, sf::Color idle, sf::Color hover, sf::Color active, sf::Font& font);
+		virtual ~Button();
+
+		// public methods
+
+	private:
+		// variables
+		sf::RectangleShape _shape;
+		std::map<std::string, sf::Color> _colors;
+		sf::Font& _font;
+
+		// private methods
+
+	}; // class Button
+
+} // namespace ng

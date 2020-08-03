@@ -4,11 +4,15 @@ namespace ng {
 
 	// constructor / destructor
 	GameState::GameState(StateData& sdata)
-		: _sdata(sdata), _gridSize(0.f), _snake(nullptr), _food(nullptr), _bfood(nullptr), _quit(false), _keyClock(5.f, 1000.f) {
+		: _sdata(sdata), _gridSize(0.f), _snake(nullptr), _food(nullptr), _bfood(nullptr), _score(0), _scoreBar(nullptr),
+			_bfoodLifeBar(nullptr), _quit(false), _keyClock(5.f, 1000.f) {
 
+		this->_initFont();
 		this->_initSnake();
 		this->_initFood(this->_food, "../config/food.ini");
 		this->_initFood(this->_bfood, "../config/big_food.ini");
+		this->_initScoreBar();
+		this->_initStatusBar();
 
 	}
 
@@ -17,6 +21,8 @@ namespace ng {
 		delete this->_snake;
 		delete this->_food;
 		delete this->_bfood;
+		delete this->_scoreBar;
+		delete this->_bfoodLifeBar;
 
 	}
 
@@ -58,13 +64,19 @@ namespace ng {
 
 		if (this->_bfood->active() && !this->_bfood->update(dtime)) {
 
-			this->_bfood->active(false);
 			this->_snake->points(false);
+			this->_bfood->active(false);
+			this->_bfoodLifeBar->active(false);
 
 		}
 
 		if (!this->_snake->update(dtime))
 			this->end();
+
+		this->_scoreBar->update(this->_score);
+
+		if (this->_bfoodLifeBar->active())
+			this->_bfoodLifeBar->update(this->_bfood->life());
 
 	}
 
@@ -76,6 +88,11 @@ namespace ng {
 		if (this->_bfood->active())
 			this->_bfood->render(target);
 
+		this->_scoreBar->render(target);
+
+		if (this->_bfoodLifeBar->active())
+			this->_bfoodLifeBar->render(target);
+
 	}
 
 	void GameState::end() {
@@ -85,6 +102,12 @@ namespace ng {
 	}
 
 	// private methods
+	void GameState::_initFont() {
+
+		this->_font.loadFromFile("../fonts/GUMDROP.ttf");
+
+	}
+
 	void GameState::_initSnake() {
 
 		std::ifstream infile("../config/snake.ini");
@@ -100,11 +123,11 @@ namespace ng {
 		infile >> velocity;
 		infile >> x >> y;
 
-		this->_snake = new ng::Snake(this->_gridSize, velocity, x, y);
+		this->_snake = new Snake(this->_gridSize, velocity, x, y);
 
 	}
 
-	void GameState::_initFood(ng::Food*& food, const char* filepath) {
+	void GameState::_initFood(Food*& food, const char* filepath) {
 
 		std::ifstream infile(filepath);
 
@@ -119,7 +142,7 @@ namespace ng {
 		unsigned short blue;
 		unsigned short alpha;
 		bool display;
-		ng::Clock* lifeClock = nullptr;
+		Clock* lifeClock = nullptr;
 		float maxTime;
 		float delay;
 
@@ -135,7 +158,7 @@ namespace ng {
 		if (!infile.eof()) {
 
 			infile >> maxTime >> delay;
-			lifeClock = new ng::Clock(maxTime, delay);
+			lifeClock = new Clock(maxTime, delay);
 
 		}
 
@@ -144,13 +167,42 @@ namespace ng {
 
 	}
 
+	void GameState::_initScoreBar() {
+
+		std::ifstream infile("../config/score_bar.ini");
+
+		if (!infile.is_open())
+			throw std::invalid_argument("failed to open the file | GameState::_initScoreBar");
+
+		float x;
+		float y;
+		unsigned characterSize;
+		unsigned short red;
+		unsigned short green;
+		unsigned short blue;
+		unsigned short alpha;
+
+		infile >> x >> y;
+		infile >> characterSize;
+		infile >> red >> green >> blue >> alpha;
+
+		this->_scoreBar = new ScoreBar(x, y, this->_font, characterSize, sf::Color(red, green, blue, alpha));
+
+	}
+
+	void GameState::_initStatusBar() {
+
+		this->_bfoodLifeBar = new StatusBar(10.f, 590.f, 580.f, 5.f, sf::Color(150, 150, 150, 150), sf::Color(47, 84, 255, 255));
+
+	}
+
 	void GameState::_randFoodPosition(float& x, float& y, const float& radius) const {
 
 		static auto gridSize = static_cast<unsigned>(this->_gridSize);
 		static float offset = (this->_gridSize - radius * 2.f) / 2.f;
 
-		x = static_cast<float>(ng::rand::uirand(0, this->_sdata.videoMode.width / gridSize - 1)) * this->_gridSize + offset;
-		y = static_cast<float>(ng::rand::uirand(0, this->_sdata.videoMode.width / gridSize - 1)) * this->_gridSize + offset;
+		x = static_cast<float>(rand::uirand(0, this->_sdata.videoMode.width / gridSize - 1)) * this->_gridSize + offset;
+		y = static_cast<float>(rand::uirand(0, this->_sdata.videoMode.width / gridSize - 1)) * this->_gridSize + offset;
 
 	}
 
@@ -167,6 +219,7 @@ namespace ng {
 
 		if (this->_snake->intersects(this->_food->getGlobalBounds())) {
 
+			this->_score += 10;
 			this->_snake->increaseLength();
 
 			float x;
@@ -189,6 +242,7 @@ namespace ng {
 
 			// set active to big food
 			this->_bfood->active(true);
+			this->_bfoodLifeBar->active(true);
 
 			float x;
 			float y;
@@ -200,9 +254,11 @@ namespace ng {
 
 		if (this->_bfood->active() && this->_snake->intersects(this->_bfood->getGlobalBounds())) {
 
+			this->_score += 50;
 			this->_snake->increaseLength();
 			this->_snake->points(false);
 			this->_bfood->active(false);
+			this->_bfoodLifeBar->active(false);
 
 		}
 

@@ -6,6 +6,10 @@ namespace ng {
 	Clock::Clock(float maxTime, float delay) : _time(0.f), _maxTime(maxTime), _delay(delay) {}
 
 	// accessors
+	const float& Clock::currentTime() const { return this->_time; }
+
+	const float& Clock::maxTime() const { return this->_maxTime; }
+
 	bool Clock::getTime() {
 
 		if (this->_time >= this->_maxTime) {
