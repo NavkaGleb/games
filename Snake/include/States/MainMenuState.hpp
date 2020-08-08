@@ -5,7 +5,7 @@ namespace ng {
 	class MainMenuState {
 	public:
 		// constructor / destructor
-		
+
 		// public methods
 
 	private:
