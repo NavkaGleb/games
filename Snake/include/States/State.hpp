@@ -41,8 +41,9 @@ namespace ng {
 		sf::VideoMode videoMode;
 		sf::ContextSettings settings;
 		unsigned framerateLimit;
+		std::stack<State*>& states;
 
-		StateData() = default;
+		explicit StateData(std::stack<State*>& states);
 		virtual ~StateData() = default;
 
 	};

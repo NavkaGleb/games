@@ -3,7 +3,7 @@
 namespace ng {
 
 	// constructor / destructor
-	Core::Core() : _window(nullptr), _cursor(nullptr), _dtime(0.f) {
+	Core::Core() : _window(nullptr), _cursor(nullptr), _sdata(this->_states), _dtime(0.f) {
 
 		this->_initWindow();
 		this->_initStates();
@@ -96,12 +96,12 @@ namespace ng {
 
 			}
 
-			if (event.type == sf::Event::MouseMoved) {
-
-				if (!this->_states.empty())
-					this->_states.top()->updateMouse(event, sf::Mouse::getPosition(*this->_window));
-
-			}
+//			if (event.type == sf::Event::MouseMoved) {
+//
+//				if (!this->_states.empty())
+//					this->_states.top()->updateMouse(event, sf::Mouse::getPosition(*this->_window));
+//
+//			}
 
 			if (event.type == sf::Event::MouseButtonPressed) {
 
@@ -116,6 +116,7 @@ namespace ng {
 
 		if (!this->_states.empty()) {
 
+			this->_states.top()->updateMouse(event, sf::Mouse::getPosition(*this->_window));
 			this->_states.top()->update(this->_dtime);
 
 			if (this->_states.top()->quit()) {

@@ -12,8 +12,12 @@ namespace ng::gui {
 	class Button {
 	public:
 		// constructor / destructor
-		Button(float x, float y, float width, float height, const std::string& text,
-			sf::Color idle, sf::Color hover, sf::Color active, sf::Font& font);
+		Button(float x, float y, float width, float height,
+			const std::string& text, unsigned characterSize, sf::Font& font,
+			sf::Color bidle, sf::Color bhover, sf::Color bactive,
+			sf::Color tidle = sf::Color(0, 0, 0, 255),
+			sf::Color thover = sf::Color(0, 0, 0, 255),
+			sf::Color tactive = sf::Color(0, 0, 0, 255));
 		virtual ~Button();
 
 		// accessors
@@ -29,7 +33,6 @@ namespace ng::gui {
 		// variables
 		sf::RectangleShape _shape;
 		std::map<std::string, sf::Color> _colors;
-		sf::Font& _font;
 		sf::Text _text;
 		short _state;
 

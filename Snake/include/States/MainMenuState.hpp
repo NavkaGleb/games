@@ -25,6 +25,7 @@ namespace ng {
 
 	private:
 		// variables
+		StateData& _sdata;
 		bool _quit;
 		sf::Font _font;
 		std::map<std::string, gui::Button*> _buttons;

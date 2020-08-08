@@ -266,7 +266,7 @@ namespace ng {
 
 		if (this->_bfood->active() && this->_snake->intersects(this->_bfood->getGlobalBounds())) {
 
-			this->_score += 50;
+			this->_score += static_cast<int>(100 * this->_bfood->life());
 			this->_snake->increaseLength();
 			this->_snake->points(false);
 			this->_bfood->active(false);

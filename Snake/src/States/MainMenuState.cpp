@@ -4,7 +4,7 @@ namespace ng {
 
 	// constructor / destructor
 	MainMenuState::MainMenuState(StateData& sdata)
-		: _quit(false) {
+		: _sdata(sdata), _quit(false) {
 
 		this->_initFont();
 		this->_initButtons();
@@ -44,7 +44,8 @@ namespace ng {
 
 	void MainMenuState::update(const float& dtime) {
 
-
+		if (this->_buttons["game"]->isPressed())
+			this->_sdata.states.emplace(new GameState(this->_sdata));
 
 	}
 
@@ -70,8 +71,9 @@ namespace ng {
 
 	void MainMenuState::_initButtons() {
 
-		this->_buttons["game"] = new gui::Button(50.f, 50.f, 300.f, 40.f, "game",
-			sf::Color(150, 150, 150, 150), sf::Color(200, 200, 200, 150), sf::Color(255, 255, 255, 150), this->_font);
+		this->_buttons["game"] = new gui::Button(50.f, 50.f, 300.f, 40.f, "game", 30, this->_font,
+			sf::Color(150, 150, 150, 150), sf::Color(200, 200, 200, 150), sf::Color(255, 255, 255, 150)
+		);
 
 	}
 
