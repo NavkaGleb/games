@@ -19,7 +19,8 @@ namespace ng {
 
 		// public methods
 		void updateInput(const sf::Event& event) override;
-		void updateMouseClick(const sf::Event& event) override;
+		void updateMouse(const sf::Event& event, const sf::Vector2i& mousePosition) override;
+		void updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) override;
 		void update(const float& dtime) override;
 		void render(sf::RenderTarget& target) override;
 
@@ -34,8 +35,8 @@ namespace ng {
 		Food* _food;
 		Food* _bfood;
 		int _score;
-		ScoreBar* _scoreBar;
-		StatusBar* _bfoodLifeBar;
+		gui::ScoreBar* _scoreBar;
+		gui::StatusBar* _bfoodLifeBar;
 		ng::Clock _keyClock;
 		bool _quit;
 

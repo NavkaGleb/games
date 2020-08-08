@@ -69,7 +69,7 @@ namespace ng {
 
 	void Core::_initStates() {
 
-		this->_states.emplace(new GameState(this->_sdata));
+		this->_states.emplace(new MainMenuState(this->_sdata));
 
 	}
 
@@ -87,15 +87,26 @@ namespace ng {
 
 				this->_window->close();
 
-			} else if (event.type == sf::Event::KeyPressed) {
+			}
+
+			if (event.type == sf::Event::KeyPressed) {
 
 				if (!this->_states.empty())
 					this->_states.top()->updateInput(event);
 
-			} else if (event.type == sf::Event::MouseButtonPressed) {
+			}
+
+			if (event.type == sf::Event::MouseMoved) {
 
 				if (!this->_states.empty())
-					this->_states.top()->updateMouseClick(event);
+					this->_states.top()->updateMouse(event, sf::Mouse::getPosition(*this->_window));
+
+			}
+
+			if (event.type == sf::Event::MouseButtonPressed) {
+
+				if (!this->_states.empty())
+					this->_states.top()->updateMouseClick(event, sf::Mouse::getPosition(*this->_window));
 
 				std::cout << "button pressed!" << std::endl;
 

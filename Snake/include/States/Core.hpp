@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameState.hpp"
+#include "MainMenuState.hpp"
 
 namespace ng {
 

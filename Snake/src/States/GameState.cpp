@@ -56,9 +56,15 @@ namespace ng {
 
 	}
 
-	void GameState::updateMouseClick(const sf::Event& event) {
+	void GameState::updateMouse(const sf::Event& event, const sf::Vector2i& mousePosition) {
 
 
+
+	}
+
+	void GameState::updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) {
+
+		std::cout << mousePosition.x << "\t" << mousePosition.y << std::endl;
 
 	}
 
