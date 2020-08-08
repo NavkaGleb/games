@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace ng {
+namespace ng::gui {
 
 	class StatusBar {
 	public:
@@ -31,4 +31,4 @@ namespace ng {
 
 	}; // class StatusBar
 
-} // namespace ng
+} // namespace ng::gui

@@ -30,7 +30,7 @@ namespace ng {
 	const bool& GameState::quit() const { return this->_quit; }
 
 	// public methods
-	void GameState::updateInput(const float& dtime, sf::Event& event) {
+	void GameState::updateInput(const sf::Event& event) {
 
 		if (event.key.code == sf::Keyboard::Key::W && this->_keyClock.getTime()) {
 
@@ -53,6 +53,12 @@ namespace ng {
 			this->_quit = true;
 
 		}
+
+	}
+
+	void GameState::updateMouseClick(const sf::Event& event) {
+
+
 
 	}
 
@@ -186,13 +192,13 @@ namespace ng {
 		infile >> characterSize;
 		infile >> red >> green >> blue >> alpha;
 
-		this->_scoreBar = new ScoreBar(x, y, this->_font, characterSize, sf::Color(red, green, blue, alpha));
+		this->_scoreBar = new gui::ScoreBar(x, y, this->_font, characterSize, sf::Color(red, green, blue, alpha));
 
 	}
 
 	void GameState::_initStatusBar() {
 
-		this->_bfoodLifeBar = new StatusBar(10.f, 590.f, 580.f, 5.f, sf::Color(150, 150, 150, 150), sf::Color(47, 84, 255, 255));
+		this->_bfoodLifeBar = new gui::StatusBar(10.f, 590.f, 580.f, 5.f, sf::Color(150, 150, 150, 150), sf::Color(47, 84, 255, 255));
 
 	}
 

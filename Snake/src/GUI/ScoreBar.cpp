@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace ng {
+namespace ng::gui {
 
 	ScoreBar::ScoreBar(float x, float y, sf::Font& font, unsigned characterSize, sf::Color color)
 		: _font(font) {
@@ -38,4 +38,4 @@ namespace ng {
 	// private methods
 
 
-} // namespace ng
+} // namespace ng::gui

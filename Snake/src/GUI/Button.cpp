@@ -1,6 +1,6 @@
 #include "Button.hpp"
 
-namespace ng {
+namespace ng::gui {
 
 	// constructor / destructor
 	Button::Button(float x, float y, float width, float height,
@@ -22,4 +22,4 @@ namespace ng {
 
 	// private methods
 
-} // namespace ng
+} // namespace ng::gui

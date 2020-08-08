@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace ng {
+namespace ng::gui {
 
 	class ScoreBar {
 	public:
@@ -23,4 +23,4 @@ namespace ng {
 
 	}; // class ScoreBar
 
-} // namespace ng
+} // namespace ng::gui

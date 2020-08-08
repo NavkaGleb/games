@@ -5,7 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace ng {
+namespace ng::gui {
 
 	class Button {
 	public:
@@ -25,4 +25,4 @@ namespace ng {
 
 	}; // class Button
 
-} // namespace ng
+} // namespace ng::gui

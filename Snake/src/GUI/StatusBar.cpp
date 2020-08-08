@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace ng {
+namespace ng::gui {
 
 	// constructor / destructor
 	StatusBar::StatusBar(float x, float y, float width, float height, sf::Color backgroundColor, sf::Color statusColor)
@@ -51,4 +51,4 @@ namespace ng {
 
 	// private methods
 
-} // namespace ng
+} // namespace ng::gui
