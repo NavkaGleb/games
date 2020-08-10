@@ -2,10 +2,12 @@
 
 #include "State.hpp"
 #include "StateData.hpp"
+#include "Field.hpp"
 #include "Snake.hpp"
 #include "Food.hpp"
 #include "ScoreBar.hpp"
 #include "StatusBar.hpp"
+#include "GUI.hpp"
 
 namespace ng {
 
@@ -32,6 +34,7 @@ namespace ng {
 		StateData& _sdata;
 		sf::Font _font;
 		float _gridSize;
+		Field* _field;
 		Snake* _snake;
 		Food* _food;
 		Food* _bfood;
@@ -43,6 +46,7 @@ namespace ng {
 
 		// private methods
 		void _initFont();
+		void _initField();
 		void _initSnake();
 		void _initFood(ng::Food*& food, const char* filepath);
 		void _initScoreBar();

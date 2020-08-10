@@ -16,7 +16,7 @@ namespace ng {
 	class Snake {
 	public:
 		// constructor / destructor
-		Snake(float size, float velocity, float x, float y);
+		Snake(float x, float y, float size, float velocity, const sf::FloatRect& field);
 		virtual ~Snake();
 
 		// accessors
@@ -46,6 +46,10 @@ namespace ng {
 		sf::Vector2f _position;
 		std::map<std::string, sf::Color> _colors;
 		std::vector<sf::RectangleShape*> _shape;
+		float _left;
+		float _right;
+		float _top;
+		float _bottom;
 
 		// private methods
 		bool _suitableDir(const short& currentDir) const;

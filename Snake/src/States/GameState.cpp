@@ -4,10 +4,11 @@ namespace ng {
 
 	// constructor / destructor
 	GameState::GameState(StateData& sdata)
-		: _sdata(sdata), _gridSize(0.f), _snake(nullptr), _food(nullptr), _bfood(nullptr), _score(0), _scoreBar(nullptr),
+		: _sdata(sdata), _gridSize(0.f), _field(nullptr), _snake(nullptr), _food(nullptr), _bfood(nullptr), _score(0), _scoreBar(nullptr),
 			_bfoodLifeBar(nullptr), _quit(false), _keyClock(5.f, 1000.f) {
 
 		this->_initFont();
+		this->_initField();
 		this->_initSnake();
 		this->_initFood(this->_food, "../config/food.ini");
 		this->_initFood(this->_bfood, "../config/big_food.ini");
@@ -18,6 +19,7 @@ namespace ng {
 
 	GameState::~GameState() {
 
+		delete this->_field;
 		delete this->_snake;
 		delete this->_food;
 		delete this->_bfood;
@@ -94,6 +96,7 @@ namespace ng {
 
 	void GameState::render(sf::RenderTarget& target) {
 
+		target.draw(*this->_field);
 		this->_snake->render(target);
 		this->_food->render(target);
 
@@ -120,6 +123,32 @@ namespace ng {
 
 	}
 
+	void GameState::_initField() {
+
+		std::ifstream infile("../config/field.ini");
+
+		if (!infile.is_open())
+			throw std::invalid_argument("failed to open the file | GameState::_initField");
+
+		float percentage;
+		float outlineThickness;
+
+		infile >> percentage;
+		infile >> outlineThickness;
+
+		this->_gridSize = ng::gui::p2px(percentage, this->_sdata.vm);
+
+		float x = this->_gridSize * 2.f;
+		float y = this->_gridSize * 2.f;
+		float width = static_cast<float>(this->_sdata.vm.width) - (4.f * this->_gridSize);
+		float height = static_cast<float>(this->_sdata.vm.height) - (4.f * this->_gridSize);
+
+		this->_field = new Field(x, y, width, height, outlineThickness);
+
+		infile.close();
+
+	}
+
 	void GameState::_initSnake() {
 
 		std::ifstream infile("../config/snake.ini");
@@ -131,11 +160,12 @@ namespace ng {
 		float x;
 		float y;
 
-		infile >> this->_gridSize;
 		infile >> velocity;
 		infile >> x >> y;
 
-		this->_snake = new Snake(this->_gridSize, velocity, x, y);
+		this->_snake = new Snake(x, y, this->_gridSize, velocity, sf::FloatRect(this->_field->getPosition(), this->_field->getSize()));
+
+		infile.close();
 
 	}
 
@@ -149,25 +179,23 @@ namespace ng {
 		// food variables
 		float radius;
 		unsigned pointCount;
-		unsigned short red;
-		unsigned short green;
-		unsigned short blue;
-		unsigned short alpha;
+		sf::Color color;
 		bool display;
 		Clock* lifeClock = nullptr;
-		float maxTime;
-		float delay;
 
 		// position variables
 		float x;
 		float y;
 
 		infile >> radius >> pointCount;
-		infile >> red >> green >> blue >> alpha;
+		ng::gui::getColor(infile, color);
 		infile >> display;
 
 		// if food is temporary
 		if (!infile.eof()) {
+
+			float maxTime;
+			float delay;
 
 			infile >> maxTime >> delay;
 			lifeClock = new Clock(maxTime, delay);
@@ -175,7 +203,9 @@ namespace ng {
 		}
 
 		this->_getFoodPosition(x, y, radius);
-		food = new Food(radius, pointCount, x, y, sf::Color(red, green, blue, alpha), display, lifeClock);
+		food = new Food(radius, pointCount, x, y, color, display, lifeClock);
+
+		infile.close();
 
 	}
 
@@ -189,32 +219,38 @@ namespace ng {
 		float x;
 		float y;
 		unsigned characterSize;
-		unsigned short red;
-		unsigned short green;
-		unsigned short blue;
-		unsigned short alpha;
+		sf::Color color;
 
 		infile >> x >> y;
 		infile >> characterSize;
-		infile >> red >> green >> blue >> alpha;
+		ng::gui::getColor(infile, color);
 
-		this->_scoreBar = new gui::ScoreBar(x, y, this->_font, characterSize, sf::Color(red, green, blue, alpha));
+		this->_scoreBar = new gui::ScoreBar(x, y, this->_font, characterSize, color);
+
+		infile.close();
 
 	}
 
 	void GameState::_initStatusBar() {
 
-		this->_bfoodLifeBar = new gui::StatusBar(10.f, 590.f, 580.f, 5.f, sf::Color(150, 150, 150, 150), sf::Color(47, 84, 255, 255));
+		float width = ng::gui::p2px(82.f, this->_sdata.vm);
+		float height = ng::gui::p2py(0.6f, this->_sdata.vm);
+		float x = (static_cast<float>(this->_sdata.vm.width) - width) / 2.f;
+		float y = ng::gui::p2py(96.f, this->_sdata.vm);
+
+		this->_bfoodLifeBar = new gui::StatusBar(x, y, width, height, sf::Color(150, 150, 150, 150), sf::Color(47, 84, 255, 255));
 
 	}
 
 	void GameState::_randFoodPosition(float& x, float& y, const float& radius) const {
 
 		static auto gridSize = static_cast<unsigned>(this->_gridSize);
+		static unsigned left = static_cast<unsigned>(this->_field->getPosition().x) / gridSize;
+		static unsigned right = static_cast<unsigned>(this->_field->getPosition().x + this->_field->getSize().x) / gridSize - 1;
 		static float offset = (this->_gridSize - radius * 2.f) / 2.f;
 
-		x = static_cast<float>(rand::uirand(0, this->_sdata.vm.width / gridSize - 1)) * this->_gridSize + offset;
-		y = static_cast<float>(rand::uirand(0, this->_sdata.vm.width / gridSize - 1)) * this->_gridSize + offset;
+		x = static_cast<float>(rand::uirand(left, right)) * this->_gridSize + offset;
+		y = static_cast<float>(rand::uirand(left, right)) * this->_gridSize + offset;
 
 	}
 

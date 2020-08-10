@@ -16,4 +16,33 @@ namespace ng::gui {
 
 	}
 
+	sf::Color getColor(std::istream& istream) {
+
+		unsigned short red;
+		unsigned short green;
+		unsigned short blue;
+		unsigned short alpha;
+
+		istream >> red >> green >> blue >> alpha;
+
+		return sf::Color(red, green, blue, alpha);
+
+	}
+
+	void getColor(std::istream& istream, sf::Color& color) {
+
+		unsigned short red;
+		unsigned short green;
+		unsigned short blue;
+		unsigned short alpha;
+
+		istream >> red >> green >> blue >> alpha;
+
+		color.r = red;
+		color.g = green;
+		color.b = blue;
+		color.a = alpha;
+
+	}
+
 } // namespace ng::gui

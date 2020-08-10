@@ -5,13 +5,18 @@
 namespace ng {
 
 	// constructor / destructor
-	Snake::Snake(float size, float velocity, float x, float y)
+	Snake::Snake(float x, float y, float size, float velocity, const sf::FloatRect& field)
 		: _size(size), _velocity(velocity), _dir(DIR::NONE), _velocityClock(50.f, 200.f), _increase(false), _points(false) {
 
 		this->_dirs.emplace(DIR::DOWN);
 
 		this->_colors["head"] = sf::Color(118, 186, 27, 150);
 		this->_colors["default"] = sf::Color(118, 186, 27, 255);
+
+		this->_left = field.left;
+		this->_right = field.left + field.width - this->_size;
+		this->_top = field.top;
+		this->_bottom = field.top + field.height - this->_size;
 
 		this->_increaseLength(x, y, this->_colors["head"]);
 
@@ -36,6 +41,12 @@ namespace ng {
 
 		if (head)
 			return this->_shape.front()->getGlobalBounds().intersects(position);
+
+//		return std::any_of(this->_shape.begin(), this->_shape.end(), [&](const sf::RectangleShape* shape) {
+//
+//			return shape->getGlobalBounds().intersects(position);
+//
+//		});
 
 		for (const auto& rect : this->_shape)
 			if (rect->getGlobalBounds().intersects(position))
@@ -108,14 +119,14 @@ namespace ng {
 			this->_position = this->_shape.front()->getPosition();
 
 			// transfer
-			if (this->_position.x < 0)
-				this->_shape.front()->setPosition(600.f - 30.f, this->_position.y);
-			if (this->_position.x > 570.f)
-				this->_shape.front()->setPosition(0.f, this->_position.y);
-			if (this->_position.y < 0)
-				this->_shape.front()->setPosition(this->_position.x, 570.f);
-			if (this->_position.y > 570.f)
-				this->_shape.front()->setPosition(this->_position.x, 0.f);
+			if (this->_position.x < this->_left)
+				this->_shape.front()->setPosition(this->_right, this->_position.y);
+			if (this->_position.x > this->_right)
+				this->_shape.front()->setPosition(this->_left, this->_position.y);
+			if (this->_position.y < this->_top)
+				this->_shape.front()->setPosition(this->_position.x, this->_bottom);
+			if (this->_position.y > this->_bottom)
+				this->_shape.front()->setPosition(this->_position.x, this->_top);
 
 		}
 
