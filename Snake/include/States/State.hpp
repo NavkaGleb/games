@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <stack>
 #include <queue>
 #include <fstream>
 #include <map>
@@ -34,18 +33,5 @@ namespace ng {
 		virtual void end() = 0;
 
 	}; // class State
-
-	class StateData {
-	public:
-		// variables
-		sf::VideoMode videoMode;
-		sf::ContextSettings settings;
-		unsigned framerateLimit;
-		std::stack<State*>& states;
-
-		explicit StateData(std::stack<State*>& states);
-		virtual ~StateData() = default;
-
-	};
 
 } // namespace ng

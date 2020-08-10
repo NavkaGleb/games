@@ -9,7 +9,7 @@ namespace ng::gui {
 
 	enum STATES { IDLE = 0, HOVER, ACTIVE };
 
-	class Button {
+	class Button : public sf::Drawable {
 	public:
 		// constructor / destructor
 		Button(float x, float y, float width, float height,
@@ -18,16 +18,23 @@ namespace ng::gui {
 			sf::Color tidle = sf::Color(0, 0, 0, 255),
 			sf::Color thover = sf::Color(0, 0, 0, 255),
 			sf::Color tactive = sf::Color(0, 0, 0, 255));
-		virtual ~Button();
+		~Button() override;
 
 		// accessors
 		bool isPressed() const;
 
 		// modifiers
 
+		void setFont(const sf::Font& font);
+		void setText(const std::string& text);
+		void setCharacterSize(const unsigned& size);
+
 		// public methods
 		void update(const sf::Vector2i& mousePosition);
-		void render(sf::RenderTarget& target);
+
+	protected:
+		// protected methods
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
 		// variables

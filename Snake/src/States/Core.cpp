@@ -53,14 +53,14 @@ namespace ng {
 		unsigned short blue = 0;
 		unsigned short alpha = 0;
 
-		infile >> this->_sdata.videoMode.width >> this->_sdata.videoMode.height;
+		infile >> this->_sdata.vm.width >> this->_sdata.vm.height;
 		infile >> title;
 		infile >> style;
 		infile >> this->_sdata.settings.antialiasingLevel;
 		infile >> this->_sdata.framerateLimit;
 		infile >> red >> green >> blue >> alpha;
 
-		this->_window = new sf::RenderWindow(this->_sdata.videoMode, title, style, this->_sdata.settings);
+		this->_window = new sf::RenderWindow(this->_sdata.vm, title, style, this->_sdata.settings);
 		this->_window->setFramerateLimit(this->_sdata.framerateLimit);
 
 		this->_clearColor = sf::Color(red, green, blue, alpha);

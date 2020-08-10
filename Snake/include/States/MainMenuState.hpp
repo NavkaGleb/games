@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameState.hpp"
-#include "Button.hpp"
+#include "GUI.hpp"
 
 namespace ng {
 

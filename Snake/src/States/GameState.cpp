@@ -213,8 +213,8 @@ namespace ng {
 		static auto gridSize = static_cast<unsigned>(this->_gridSize);
 		static float offset = (this->_gridSize - radius * 2.f) / 2.f;
 
-		x = static_cast<float>(rand::uirand(0, this->_sdata.videoMode.width / gridSize - 1)) * this->_gridSize + offset;
-		y = static_cast<float>(rand::uirand(0, this->_sdata.videoMode.width / gridSize - 1)) * this->_gridSize + offset;
+		x = static_cast<float>(rand::uirand(0, this->_sdata.vm.width / gridSize - 1)) * this->_gridSize + offset;
+		y = static_cast<float>(rand::uirand(0, this->_sdata.vm.width / gridSize - 1)) * this->_gridSize + offset;
 
 	}
 

@@ -1,7 +1,6 @@
 #include "Button.hpp"
 
 #include <cmath>
-#include <iostream>
 
 namespace ng::gui {
 
@@ -23,16 +22,13 @@ namespace ng::gui {
 		this->_text.setString(text);
 		this->_text.setFillColor(sf::Color(0, 0, 0, 255));
 		this->_text.setOrigin(
-			this->_text.getGlobalBounds().left + this->_text.getGlobalBounds().width / 2.f,
-			this->_text.getGlobalBounds().top + this->_text.getGlobalBounds().height / 2.f
+			std::floor(this->_text.getGlobalBounds().left + this->_text.getGlobalBounds().width / 2.f),
+			std::floor(this->_text.getGlobalBounds().top + this->_text.getGlobalBounds().height / 2.f)
 		);
 		this->_text.setPosition(
-			x + width / 2.f,
-			y + height / 2.f
+			std::floor(this->_shape.getPosition().x + this->_shape.getGlobalBounds().width / 2.f),
+			std::floor(this->_shape.getPosition().y + this->_shape.getGlobalBounds().height / 2.f)
 		);
-
-		std::cout << "x = " << this->_text.getPosition().x << ", y = " << this->_text.getPosition().y << std::endl;
-		std::cout << "width = " << this->_text.getGlobalBounds().width << ", height = " << this->_text.getGlobalBounds().height << std::endl;
 
 		// init colors
 		this->_colors["buttonIdle"] = bidle;
@@ -54,6 +50,11 @@ namespace ng::gui {
 	bool Button::isPressed() const { return this->_state == STATES::ACTIVE; }
 
 	// modifiers
+	void Button::setFont(const sf::Font& font) { this->_text.setFont(font); }
+
+	void Button::setText(const std::string& text) { this->_text.setString(text); }
+
+	void Button::setCharacterSize(const unsigned& size) { this->_text.setCharacterSize(size); }
 
 	// public methods
 	void Button::update(const sf::Vector2i& mousePosition) {
@@ -88,7 +89,8 @@ namespace ng::gui {
 
 	}
 
-	void Button::render(sf::RenderTarget& target) {
+	// protected methods
+	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 		target.draw(this->_shape);
 		target.draw(this->_text);

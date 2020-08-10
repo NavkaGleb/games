@@ -1,6 +1,7 @@
 #pragma once
 
 #include "State.hpp"
+#include "StateData.hpp"
 #include "Snake.hpp"
 #include "Food.hpp"
 #include "ScoreBar.hpp"

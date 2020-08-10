@@ -47,12 +47,15 @@ namespace ng {
 		if (this->_buttons["game"]->isPressed())
 			this->_sdata.states.emplace(new GameState(this->_sdata));
 
+		if (this->_buttons["exit"]->isPressed())
+			this->_quit = true;
+
 	}
 
 	void MainMenuState::render(sf::RenderTarget& target) {
 
 		for (const auto& p : this->_buttons)
-			p.second->render(target);
+			target.draw(*p.second);
 
 	}
 
@@ -71,7 +74,19 @@ namespace ng {
 
 	void MainMenuState::_initButtons() {
 
-		this->_buttons["game"] = new gui::Button(50.f, 50.f, 300.f, 40.f, "game", 30, this->_font,
+		float width = ng::gui::p2px(50.f, this->_sdata.vm);
+		float height = ng::gui::p2py(7.f, this->_sdata.vm);
+		float x = (static_cast<float>(this->_sdata.vm.width) - width) / 2.f;
+		float y = ng::gui::p2py(10.f, this->_sdata.vm);
+		float offsety = ng::gui::p2py(10.f, this->_sdata.vm);
+
+		this->_buttons["game"] = new gui::Button(
+			x, y + offsety * 0, width, height, "game", 30, this->_font,
+			sf::Color(150, 150, 150, 150), sf::Color(200, 200, 200, 150), sf::Color(255, 255, 255, 150)
+		);
+
+		this->_buttons["exit"] = new gui::Button(
+			x, y + offsety * 1, width, height, "exit", 30, this->_font,
 			sf::Color(150, 150, 150, 150), sf::Color(200, 200, 200, 150), sf::Color(255, 255, 255, 150)
 		);
 

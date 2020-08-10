@@ -26,7 +26,9 @@ set(SOURCE_FILES src/main.cpp
     include/GUI/StatusBar.hpp
     src/GUI/ScoreBar.cpp
     src/GUI/StatusBar.cpp
-    src/States/MainMenuState.cpp src/States/State.cpp)
+    src/States/MainMenuState.cpp
+    include/Structs/StateData.hpp
+    src/Structs/StateData.cpp)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 find_package(SFML 2.5.1 COMPONENTS network window graphics system REQUIRED)
@@ -38,6 +40,7 @@ include_directories(
     "${PROJECT_SOURCE_DIR}/include/Clock"
     "${PROJECT_SOURCE_DIR}/include/Random"
     "${PROJECT_SOURCE_DIR}/include/GUI"
+    "${PROJECT_SOURCE_DIR}/include/Structs"
     ${SFML_INCLUDE_DIR}
 )
 
