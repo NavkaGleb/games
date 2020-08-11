@@ -9,7 +9,7 @@ namespace ng::gui {
 		const std::string& text, unsigned characterSize, sf::Font& font,
 		sf::Color bidle, sf::Color bhover, sf::Color bactive,
 		sf::Color tidle, sf::Color thover, sf::Color tactive)
-		: _state(STATES::IDLE) {
+		: _state(States::Idle) {
 
 		// init shape
 		this->_shape.setPosition(x, y);
@@ -47,7 +47,7 @@ namespace ng::gui {
 	}
 
 	// accessors
-	bool Button::isPressed() const { return this->_state == STATES::ACTIVE; }
+	bool Button::isPressed() const { return this->_state == States::Active; }
 
 	// modifiers
 	void Button::setFont(const sf::Font& font) { this->_text.setFont(font); }
@@ -59,28 +59,28 @@ namespace ng::gui {
 	// public methods
 	void Button::update(const sf::Vector2i& mousePosition) {
 
-		this->_state = STATES::IDLE;
+		this->_state = States::Idle;
 
 		if (this->_shape.getGlobalBounds().contains(sf::Vector2f(mousePosition))) {
 
-			this->_state = STATES::HOVER;
+			this->_state = States::Hover;
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-				this->_state = STATES::ACTIVE;
+				this->_state = States::Active;
 
 		}
 
-		if (this->_state == STATES::IDLE) {
+		if (this->_state == States::Idle) {
 
 			this->_shape.setFillColor(this->_colors["buttonIdle"]);
 			this->_text.setFillColor(this->_colors["textIdle"]);
 
-		} else if (this->_state == STATES::HOVER) {
+		} else if (this->_state == States::Hover) {
 
 			this->_shape.setFillColor(this->_colors["buttonHover"]);
 			this->_text.setFillColor(this->_colors["textHover"]);
 
-		} else if (this->_state == STATES::ACTIVE) {
+		} else if (this->_state == States::Active) {
 
 			this->_shape.setFillColor(this->_colors["buttonActive"]);
 			this->_text.setFillColor(this->_colors["textActive"]);

@@ -103,7 +103,7 @@ namespace ng {
 		if (this->_bfood->active())
 			this->_bfood->render(target);
 
-		this->_scoreBar->render(target);
+		target.draw(*this->_scoreBar);
 
 		if (this->_bfoodLifeBar->active())
 			this->_bfoodLifeBar->render(target);
@@ -225,7 +225,7 @@ namespace ng {
 		infile >> characterSize;
 		ng::gui::getColor(infile, color);
 
-		this->_scoreBar = new gui::ScoreBar(x, y, this->_font, characterSize, color);
+		this->_scoreBar = new gui::ScoreBar(x, y, this->_font, characterSize, color, gui::ScoreBar::Alignment::Right);
 
 		infile.close();
 

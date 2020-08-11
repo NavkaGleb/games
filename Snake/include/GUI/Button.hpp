@@ -7,10 +7,12 @@
 
 namespace ng::gui {
 
-	enum STATES { IDLE = 0, HOVER, ACTIVE };
-
 	class Button : public sf::Drawable {
 	public:
+		// enums
+		enum States { Idle = 0, Hover, Active };
+		enum Alignment { Left = 0, Right, Center };
+
 		// constructor / destructor
 		Button(float x, float y, float width, float height,
 			const std::string& text, unsigned characterSize, sf::Font& font,
