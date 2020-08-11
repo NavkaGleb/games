@@ -40,7 +40,7 @@ namespace ng {
 		Food* _bfood;
 		int _score;
 		gui::ScoreBar* _scoreBar;
-		gui::StatusBar* _bfoodLifeBar;
+		gui::StatusBar* _statusBar;
 		ng::Clock _keyClock;
 		bool _quit;
 

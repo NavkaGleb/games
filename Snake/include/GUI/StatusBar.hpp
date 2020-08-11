@@ -4,11 +4,11 @@
 
 namespace ng::gui {
 
-	class StatusBar {
+	class StatusBar : public sf::Drawable {
 	public:
 		// constructor / destructor
 		StatusBar(float x, float y, float width, float height, sf::Color backgroundColor, sf::Color statusColor);
-		virtual ~StatusBar();
+		~StatusBar() override;
 
 		// accessors
 		[[nodiscard]] const bool& active() const;
@@ -18,7 +18,10 @@ namespace ng::gui {
 
 		// public methods
 		void update(const float& value);
-		void render(sf::RenderTarget& target);
+
+	protected:
+		// protected methods
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
 		// variables

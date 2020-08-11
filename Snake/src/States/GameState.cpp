@@ -5,7 +5,7 @@ namespace ng {
 	// constructor / destructor
 	GameState::GameState(StateData& sdata)
 		: _sdata(sdata), _gridSize(0.f), _field(nullptr), _snake(nullptr), _food(nullptr), _bfood(nullptr), _score(0), _scoreBar(nullptr),
-			_bfoodLifeBar(nullptr), _quit(false), _keyClock(5.f, 1000.f) {
+		  _statusBar(nullptr), _quit(false), _keyClock(5.f, 1000.f) {
 
 		this->_initFont();
 		this->_initField();
@@ -24,7 +24,7 @@ namespace ng {
 		delete this->_food;
 		delete this->_bfood;
 		delete this->_scoreBar;
-		delete this->_bfoodLifeBar;
+		delete this->_statusBar;
 
 	}
 
@@ -80,7 +80,7 @@ namespace ng {
 
 			this->_snake->points(false);
 			this->_bfood->active(false);
-			this->_bfoodLifeBar->active(false);
+			this->_statusBar->active(false);
 
 		}
 
@@ -89,8 +89,8 @@ namespace ng {
 
 		this->_scoreBar->update(this->_score);
 
-		if (this->_bfoodLifeBar->active())
-			this->_bfoodLifeBar->update(this->_bfood->life());
+		if (this->_statusBar->active())
+			this->_statusBar->update(this->_bfood->life());
 
 	}
 
@@ -105,8 +105,8 @@ namespace ng {
 
 		target.draw(*this->_scoreBar);
 
-		if (this->_bfoodLifeBar->active())
-			this->_bfoodLifeBar->render(target);
+		if (this->_statusBar->active())
+			target.draw(*this->_statusBar);
 
 	}
 
@@ -119,7 +119,8 @@ namespace ng {
 	// private methods
 	void GameState::_initFont() {
 
-		this->_font.loadFromFile("../fonts/GUMDROP.ttf");
+		if (!this->_font.loadFromFile("../fonts/GUMDROP.ttf"))
+			throw std::invalid_argument("failed to open the file | GameState::_initFont");
 
 	}
 
@@ -130,13 +131,13 @@ namespace ng {
 		if (!infile.is_open())
 			throw std::invalid_argument("failed to open the file | GameState::_initField");
 
-		float percentage;
+		float percentageGridSize;
 		float outlineThickness;
 
-		infile >> percentage;
+		infile >> percentageGridSize;
 		infile >> outlineThickness;
 
-		this->_gridSize = ng::gui::p2px(percentage, this->_sdata.vm);
+		this->_gridSize = gui::p2px(percentageGridSize, this->_sdata.vm);
 
 		float x = this->_gridSize * 2.f;
 		float y = this->_gridSize * 2.f;
@@ -188,7 +189,7 @@ namespace ng {
 		float y;
 
 		infile >> radius >> pointCount;
-		ng::gui::getColor(infile, color);
+		gui::getColor(infile, color);
 		infile >> display;
 
 		// if food is temporary
@@ -216,16 +217,21 @@ namespace ng {
 		if (!infile.is_open())
 			throw std::invalid_argument("failed to open the file | GameState::_initScoreBar");
 
-		float x;
-		float y;
+		float percentageX;
+		float percentageY;
 		unsigned characterSize;
 		sf::Color color;
 
-		infile >> x >> y;
+		infile >> percentageX >> percentageY;
 		infile >> characterSize;
-		ng::gui::getColor(infile, color);
+		gui::getColor(infile, color);
 
-		this->_scoreBar = new gui::ScoreBar(x, y, this->_font, characterSize, color, gui::ScoreBar::Alignment::Right);
+		std::cout << "x = " << gui::p2px(percentageX, this->_sdata.vm) << ", y = " <<  gui::p2py(percentageY, this->_sdata.vm) << std::endl;
+
+		this->_scoreBar = new gui::ScoreBar(
+			gui::p2px(percentageX, this->_sdata.vm), gui::p2py(percentageY, this->_sdata.vm),
+			this->_font, characterSize, color, gui::ScoreBar::Alignment::Right
+		);
 
 		infile.close();
 
@@ -233,12 +239,29 @@ namespace ng {
 
 	void GameState::_initStatusBar() {
 
-		float width = ng::gui::p2px(82.f, this->_sdata.vm);
-		float height = ng::gui::p2py(0.6f, this->_sdata.vm);
-		float x = (static_cast<float>(this->_sdata.vm.width) - width) / 2.f;
-		float y = ng::gui::p2py(96.f, this->_sdata.vm);
+		std::ifstream infile("../config/status_bar.ini");
 
-		this->_bfoodLifeBar = new gui::StatusBar(x, y, width, height, sf::Color(150, 150, 150, 150), sf::Color(47, 84, 255, 255));
+		if (!infile.is_open())
+			throw std::invalid_argument("failed to open the file | GameState::_initStatusBar");
+
+		float percentageWidth;
+		float percentageHeight;
+		sf::Color backgroundColor;
+		sf::Color statusColor;
+
+		infile >> percentageWidth >> percentageHeight;
+		gui::getColor(infile, backgroundColor);
+		gui::getColor(infile, statusColor);
+
+		float width = gui::p2px(percentageWidth, this->_sdata.vm);
+		float height = gui::p2py(percentageHeight, this->_sdata.vm);
+		float x = (static_cast<float>(this->_sdata.vm.width) - width) / 2.f;
+		float y = this->_field->getPosition().y + this->_field->getSize().y +
+			(static_cast<float>(this->_sdata.vm.height) - this->_field->getPosition().y - this->_field->getSize().y) / 2.f;
+
+		this->_statusBar = new gui::StatusBar(x, y, width, height, backgroundColor, statusColor);
+
+		infile.close();
 
 	}
 
@@ -290,7 +313,7 @@ namespace ng {
 
 			// set active to big food
 			this->_bfood->active(true);
-			this->_bfoodLifeBar->active(true);
+			this->_statusBar->active(true);
 
 			float x;
 			float y;
@@ -306,7 +329,7 @@ namespace ng {
 			this->_snake->increaseLength();
 			this->_snake->points(false);
 			this->_bfood->active(false);
-			this->_bfoodLifeBar->active(false);
+			this->_statusBar->active(false);
 
 		}
 

@@ -42,7 +42,8 @@ namespace ng::gui {
 
 	}
 
-	void StatusBar::render(sf::RenderTarget& target) {
+	// protected methods
+	void StatusBar::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 		target.draw(this->_background);
 		target.draw(this->_status);

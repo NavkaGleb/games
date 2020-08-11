@@ -12,7 +12,6 @@ namespace ng::gui {
 		this->_text.setFont(font);
 		this->_text.setCharacterSize(characterSize);
 		this->_text.setFillColor(color);
-		this->_text.setString(std::to_string(0));
 		this->_align(x, y);
 
 	}
@@ -25,8 +24,6 @@ namespace ng::gui {
 
 	// public methods
 	void ScoreBar::update(const int& score) {
-
-		std::cout << this->_text.getGlobalBounds().height << std::endl;
 
 		this->_text.setString(std::to_string(score));
 		this->_align(this->_x, this->_text.getPosition().y);
