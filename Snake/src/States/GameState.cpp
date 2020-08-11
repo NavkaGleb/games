@@ -4,8 +4,8 @@ namespace ng {
 
 	// constructor / destructor
 	GameState::GameState(StateData& sdata)
-		: _sdata(sdata), _gridSize(0.f), _field(nullptr), _snake(nullptr), _food(nullptr), _bfood(nullptr), _score(0), _scoreBar(nullptr),
-		  _statusBar(nullptr), _quit(false), _keyClock(5.f, 1000.f) {
+		: _sdata(sdata), _keyClock(5.f, 1000.f), _gridSize(0.f), _field(nullptr), _snake(nullptr), _food(nullptr), _bfood(nullptr),
+			_score(0), _scoreBar(nullptr), _statusBar(nullptr), _pauseMenu(nullptr), _paused(false), _quit(false) {
 
 		this->_initFont();
 		this->_initField();
@@ -14,6 +14,7 @@ namespace ng {
 		this->_initFood(this->_bfood, "../config/big_food.ini");
 		this->_initScoreBar();
 		this->_initStatusBar();
+		this->_initPauseMenu();
 
 	}
 
@@ -25,6 +26,7 @@ namespace ng {
 		delete this->_bfood;
 		delete this->_scoreBar;
 		delete this->_statusBar;
+		delete this->_pauseMenu;
 
 	}
 
@@ -52,49 +54,64 @@ namespace ng {
 
 		} else if (event.key.code == sf::Keyboard::Escape) {
 
-			this->_quit = true;
+			this->_paused = !this->_paused;
 
 		}
 
 	}
 
-	void GameState::updateMouse(const sf::Event& event, const sf::Vector2i& mousePosition) {
+	void GameState::updateMousePosition(const sf::Vector2i& mousePosition) {
 
-
+		if (this->_paused)
+			this->_pauseMenu->updateMousePosition(mousePosition);
 
 	}
 
 	void GameState::updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) {
 
-		std::cout << mousePosition.x << "\t" << mousePosition.y << std::endl;
+		if (this->_paused) {
+
+			if (this->_pauseMenu->isButtonPressed("resume"))
+				this->_paused = false;
+
+			if (this->_pauseMenu->isButtonPressed("quit game"))
+				this->_quit = true;
+
+		}
 
 	}
 
 	void GameState::update(const float& dtime) {
 
 		this->_keyClock.update(dtime);
-		this->_updateFood();
-		this->_updateBfood();
 
-		if (this->_bfood->active() && !this->_bfood->update(dtime)) {
+		if (!this->_paused) {
 
-			this->_snake->points(false);
-			this->_bfood->active(false);
-			this->_statusBar->active(false);
+			this->_updateFood();
+			this->_updateBfood();
+
+			if (this->_bfood->active() && !this->_bfood->update(dtime)) {
+
+				this->_snake->points(false);
+				this->_bfood->active(false);
+				this->_statusBar->active(false);
+
+			}
+
+			if (!this->_snake->update(dtime))
+				this->end();
+
+			this->_scoreBar->update(this->_score);
+
+			if (this->_statusBar->active())
+				this->_statusBar->update(this->_bfood->life());
 
 		}
-
-		if (!this->_snake->update(dtime))
-			this->end();
-
-		this->_scoreBar->update(this->_score);
-
-		if (this->_statusBar->active())
-			this->_statusBar->update(this->_bfood->life());
 
 	}
 
 	void GameState::render(sf::RenderTarget& target) {
+
 
 		target.draw(*this->_field);
 		this->_snake->render(target);
@@ -107,6 +124,10 @@ namespace ng {
 
 		if (this->_statusBar->active())
 			target.draw(*this->_statusBar);
+
+		if (this->_paused)
+			target.draw(*this->_pauseMenu);
+
 
 	}
 
@@ -260,6 +281,49 @@ namespace ng {
 			(static_cast<float>(this->_sdata.vm.height) - this->_field->getPosition().y - this->_field->getSize().y) / 2.f;
 
 		this->_statusBar = new gui::StatusBar(x, y, width, height, backgroundColor, statusColor);
+
+		infile.close();
+
+	}
+
+	void GameState::_initPauseMenu() {
+
+		std::ifstream infile("../config/pause_menu.ini");
+
+		if (!infile.is_open())
+			throw std::invalid_argument("failed to open the file | GameState::_initPauseMenu");
+
+		unsigned characterSize;
+		float textY;
+		float percentageY;
+		float percentageOffsetY;
+		float percentageButtonWidth;
+		float percentageButtonHeight;
+		unsigned buttonCharacterSize;
+		sf::Color bidle;
+		sf::Color bhover;
+		sf::Color bactive;
+
+		infile >> characterSize;
+		infile >> textY;
+		infile >> percentageY;
+		infile >> percentageOffsetY;
+		infile >> percentageButtonWidth >> percentageButtonHeight;
+		infile >> buttonCharacterSize;
+		gui::getColor(infile, bidle);
+		gui::getColor(infile, bhover);
+		gui::getColor(infile, bactive);
+
+		float y = gui::p2py(percentageY, this->_sdata.vm);
+		float offsety = gui::p2py(percentageOffsetY, this->_sdata.vm);
+		float width = gui::p2px(percentageButtonWidth, this->_sdata.vm);
+		float height = gui::p2py(percentageButtonHeight, this->_sdata.vm);
+
+		this->_pauseMenu = new gui::PauseMenu(this->_sdata.vm, characterSize, this->_font, gui::p2py(textY, this->_sdata.vm));
+
+		this->_pauseMenu->addButton(y, offsety, width, height, "resume", buttonCharacterSize, bidle, bhover, bactive);
+		this->_pauseMenu->addButton(y, offsety, width, height, "save", buttonCharacterSize, bidle, bhover, bactive);
+		this->_pauseMenu->addButton(y, offsety, width, height, "quit game", buttonCharacterSize, bidle, bhover, bactive);
 
 		infile.close();
 

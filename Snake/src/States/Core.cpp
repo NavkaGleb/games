@@ -48,22 +48,18 @@ namespace ng {
 
 		std::string title;
 		unsigned style;
-		unsigned short red = 0;
-		unsigned short green = 0;
-		unsigned short blue = 0;
-		unsigned short alpha = 0;
 
 		infile >> this->_sdata.vm.width >> this->_sdata.vm.height;
 		infile >> title;
 		infile >> style;
 		infile >> this->_sdata.settings.antialiasingLevel;
 		infile >> this->_sdata.framerateLimit;
-		infile >> red >> green >> blue >> alpha;
+		gui::getColor(infile, this->_clearColor);
 
 		this->_window = new sf::RenderWindow(this->_sdata.vm, title, style, this->_sdata.settings);
 		this->_window->setFramerateLimit(this->_sdata.framerateLimit);
 
-		this->_clearColor = sf::Color(red, green, blue, alpha);
+		infile.close();
 
 	}
 
@@ -81,6 +77,9 @@ namespace ng {
 
 	void Core::_update(sf::Event& event) {
 
+		if (!this->_states.empty())
+			this->_states.top()->updateMousePosition(sf::Mouse::getPosition(*this->_window));
+
 		while (this->_window->pollEvent(event)) {
 
 			if (event.type == sf::Event::Closed) {
@@ -96,13 +95,6 @@ namespace ng {
 
 			}
 
-//			if (event.type == sf::Event::MouseMoved) {
-//
-//				if (!this->_states.empty())
-//					this->_states.top()->updateMouse(event, sf::Mouse::getPosition(*this->_window));
-//
-//			}
-
 			if (event.type == sf::Event::MouseButtonPressed) {
 
 				if (!this->_states.empty())
@@ -116,7 +108,6 @@ namespace ng {
 
 		if (!this->_states.empty()) {
 
-			this->_states.top()->updateMouse(event, sf::Mouse::getPosition(*this->_window));
 			this->_states.top()->update(this->_dtime);
 
 			if (this->_states.top()->quit()) {

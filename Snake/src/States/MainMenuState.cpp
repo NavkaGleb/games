@@ -28,7 +28,7 @@ namespace ng {
 
 	}
 
-	void MainMenuState::updateMouse(const sf::Event& event, const sf::Vector2i& mousePosition) {
+	void MainMenuState::updateMousePosition(const sf::Vector2i& mousePosition) {
 
 		for (const auto& p : this->_buttons)
 			p.second->update(mousePosition);
@@ -37,18 +37,17 @@ namespace ng {
 
 	void MainMenuState::updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) {
 
-		for (const auto& p : this->_buttons)
-			p.second->update(mousePosition);
-
-	}
-
-	void MainMenuState::update(const float& dtime) {
-
 		if (this->_buttons["game"]->isPressed())
 			this->_sdata.states.emplace(new GameState(this->_sdata));
 
 		if (this->_buttons["exit"]->isPressed())
 			this->_quit = true;
+
+	}
+
+	void MainMenuState::update(const float& dtime) {
+
+
 
 	}
 
@@ -68,7 +67,8 @@ namespace ng {
 	// private methods
 	void MainMenuState::_initFont() {
 
-		this->_font.loadFromFile("../fonts/GUMDROP.ttf");
+		if (!this->_font.loadFromFile("../fonts/GUMDROP.ttf"))
+			throw std::invalid_argument("failed to open the file | MainMenuState::_initFont");
 
 	}
 

@@ -16,7 +16,7 @@ namespace ng {
 
 		// public methods
 		void updateInput(const sf::Event& event) override;
-		void updateMouse(const sf::Event& event, const sf::Vector2i& mousePosition) override;
+		void updateMousePosition(const sf::Vector2i& mousePosition) override;
 		void updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) override;
 		void update(const float& dtime) override;
 		void render(sf::RenderTarget& target) override;

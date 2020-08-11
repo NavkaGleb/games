@@ -15,7 +15,7 @@ namespace ng::gui {
 
 		// constructor / destructor
 		Button(float x, float y, float width, float height,
-			const std::string& text, unsigned characterSize, sf::Font& font,
+			const std::string& text, unsigned characterSize, const sf::Font& font,
 			sf::Color bidle, sf::Color bhover, sf::Color bactive,
 			sf::Color tidle = sf::Color(0, 0, 0, 255),
 			sf::Color thover = sf::Color(0, 0, 0, 255),
@@ -23,7 +23,8 @@ namespace ng::gui {
 		~Button() override;
 
 		// accessors
-		bool isPressed() const;
+		[[nodiscard]] bool isPressed() const;
+		[[nodiscard]] short state() const;
 
 		// modifiers
 

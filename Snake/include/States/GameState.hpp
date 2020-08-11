@@ -8,6 +8,7 @@
 #include "ScoreBar.hpp"
 #include "StatusBar.hpp"
 #include "GUI.hpp"
+#include "PauseMenu.hpp"
 
 namespace ng {
 
@@ -22,7 +23,7 @@ namespace ng {
 
 		// public methods
 		void updateInput(const sf::Event& event) override;
-		void updateMouse(const sf::Event& event, const sf::Vector2i& mousePosition) override;
+		void updateMousePosition(const sf::Vector2i& mousePosition) override;
 		void updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) override;
 		void update(const float& dtime) override;
 		void render(sf::RenderTarget& target) override;
@@ -32,6 +33,7 @@ namespace ng {
 	private:
 		// variables
 		StateData& _sdata;
+		ng::Clock _keyClock;
 		sf::Font _font;
 		float _gridSize;
 		Field* _field;
@@ -41,7 +43,8 @@ namespace ng {
 		int _score;
 		gui::ScoreBar* _scoreBar;
 		gui::StatusBar* _statusBar;
-		ng::Clock _keyClock;
+		gui::PauseMenu* _pauseMenu;
+		bool _paused;
 		bool _quit;
 
 		// private methods
@@ -51,6 +54,7 @@ namespace ng {
 		void _initFood(ng::Food*& food, const char* filepath);
 		void _initScoreBar();
 		void _initStatusBar();
+		void _initPauseMenu();
 
 		void _randFoodPosition(float& x, float& y, const float& radius) const;
 		void _getFoodPosition(float& x, float& y, const float& radius) const;

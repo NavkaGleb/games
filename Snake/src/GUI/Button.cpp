@@ -6,7 +6,7 @@ namespace ng::gui {
 
 	// constructor / destructor
 	Button::Button(float x, float y, float width, float height,
-		const std::string& text, unsigned characterSize, sf::Font& font,
+		const std::string& text, unsigned characterSize, const sf::Font& font,
 		sf::Color bidle, sf::Color bhover, sf::Color bactive,
 		sf::Color tidle, sf::Color thover, sf::Color tactive)
 		: _state(States::Idle) {
@@ -48,6 +48,8 @@ namespace ng::gui {
 
 	// accessors
 	bool Button::isPressed() const { return this->_state == States::Active; }
+
+	short Button::state() const { return this->_state; }
 
 	// modifiers
 	void Button::setFont(const sf::Font& font) { this->_text.setFont(font); }
