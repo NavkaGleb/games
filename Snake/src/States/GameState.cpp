@@ -4,7 +4,7 @@ namespace ng {
 
 	// constructor / destructor
 	GameState::GameState(StateData& sdata)
-		: _sdata(sdata), _keyClock(5.f, 1000.f), _gridSize(0.f), _field(nullptr), _snake(nullptr), _food(nullptr), _bfood(nullptr),
+		: _sdata(sdata), _keyClock(5.f, 150.f), _gridSize(0.f), _field(nullptr), _snake(nullptr), _food(nullptr), _bfood(nullptr),
 			_score(0), _scoreBar(nullptr), _statusBar(nullptr), _pauseMenu(nullptr), _paused(false), _quit(false) {
 
 		this->_initFont();
@@ -52,7 +52,7 @@ namespace ng {
 
 			this->_snake->dir(DIR::RIGHT);
 
-		} else if (event.key.code == sf::Keyboard::Escape) {
+		} else if (event.key.code == sf::Keyboard::Escape && this->_keyClock.getTime()) {
 
 			this->_paused = !this->_paused;
 

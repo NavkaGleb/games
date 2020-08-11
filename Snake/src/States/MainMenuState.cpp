@@ -85,8 +85,13 @@ namespace ng {
 			sf::Color(150, 150, 150, 150), sf::Color(200, 200, 200, 150), sf::Color(255, 255, 255, 150)
 		);
 
+		this->_buttons["leaderboard"] = new gui::Button(
+			x, y + offsety * 1, width, height, "leaderboard", 30, this->_font,
+			sf::Color(150, 150, 150, 150), sf::Color(200, 200, 200, 150), sf::Color(255, 255, 255, 150)
+		);
+
 		this->_buttons["exit"] = new gui::Button(
-			x, y + offsety * 1, width, height, "exit", 30, this->_font,
+			x, y + offsety * 2, width, height, "exit", 30, this->_font,
 			sf::Color(150, 150, 150, 150), sf::Color(200, 200, 200, 150), sf::Color(255, 255, 255, 150)
 		);
 
