@@ -2,6 +2,7 @@
 
 #include "GameState.hpp"
 #include "GUI.hpp"
+#include "TextBox.hpp"
 
 namespace ng {
 
@@ -18,6 +19,8 @@ namespace ng {
 		void updateInput(const sf::Event& event) override;
 		void updateMousePosition(const sf::Vector2i& mousePosition) override;
 		void updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) override;
+		void textEntered(const sf::Event& event) override;
+
 		void update(const float& dtime) override;
 		void render(sf::RenderTarget& target) override;
 
@@ -28,10 +31,12 @@ namespace ng {
 		StateData& _sdata;
 		bool _quit;
 		sf::Font _font;
+		gui::TextBox* _nicknameInput;
 		std::map<std::string, gui::Button*> _buttons;
 
 		// private methods
 		void _initFont();
+		void _initTextBox();
 		void _initButtons();
 
 	}; // class MainMenuState

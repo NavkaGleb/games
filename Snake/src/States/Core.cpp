@@ -58,6 +58,7 @@ namespace ng {
 
 		this->_window = new sf::RenderWindow(this->_sdata.vm, title, style, this->_sdata.settings);
 		this->_window->setFramerateLimit(this->_sdata.framerateLimit);
+//		this->_window->setKeyRepeatEnabled(true);
 
 		infile.close();
 
@@ -101,6 +102,13 @@ namespace ng {
 					this->_states.top()->updateMouseClick(event, sf::Mouse::getPosition(*this->_window));
 
 				std::cout << "button pressed!" << std::endl;
+
+			}
+
+			if (event.type == sf::Event::TextEntered) {
+
+				if (!this->_states.empty())
+					this->_states.top()->textEntered(event);
 
 			}
 

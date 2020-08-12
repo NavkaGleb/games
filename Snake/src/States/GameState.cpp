@@ -81,6 +81,12 @@ namespace ng {
 
 	}
 
+	void GameState::textEntered(const sf::Event& event) {
+
+
+
+	}
+
 	void GameState::update(const float& dtime) {
 
 		this->_keyClock.update(dtime);

@@ -28,7 +28,7 @@ set(SOURCE_FILES src/main.cpp
     src/GUI/StatusBar.cpp
     src/States/MainMenuState.cpp
     include/Structs/StateData.hpp
-    src/Structs/StateData.cpp include/GUI/Field.hpp src/GUI/Field.cpp include/GUI/PauseMenu.hpp src/GUI/PauseMenu.cpp)
+    src/Structs/StateData.cpp include/GUI/Field.hpp src/GUI/Field.cpp include/GUI/PauseMenu.hpp src/GUI/PauseMenu.cpp include/GUI/TextBox.hpp src/GUI/TextBox.cpp)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 find_package(SFML 2.5.1 COMPONENTS network window graphics system REQUIRED)

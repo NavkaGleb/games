@@ -4,14 +4,17 @@ namespace ng {
 
 	// constructor / destructor
 	MainMenuState::MainMenuState(StateData& sdata)
-		: _sdata(sdata), _quit(false) {
+		: _sdata(sdata), _quit(false), _nicknameInput(nullptr) {
 
 		this->_initFont();
+		this->_initTextBox();
 		this->_initButtons();
 
 	}
 
 	MainMenuState::~MainMenuState() {
+
+		delete this->_nicknameInput;
 
 		for (auto& p : this->_buttons)
 			delete p.second;
@@ -24,7 +27,11 @@ namespace ng {
 	// public methods
 	void MainMenuState::updateInput(const sf::Event& event) {
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+			this->_nicknameInput->active(true);
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			this->_nicknameInput->active(false);
 
 	}
 
@@ -45,6 +52,12 @@ namespace ng {
 
 	}
 
+	void MainMenuState::textEntered(const sf::Event& event) {
+
+		this->_nicknameInput->input(event);
+
+	}
+
 	void MainMenuState::update(const float& dtime) {
 
 
@@ -52,6 +65,8 @@ namespace ng {
 	}
 
 	void MainMenuState::render(sf::RenderTarget& target) {
+
+		target.draw(*this->_nicknameInput);
 
 		for (const auto& p : this->_buttons)
 			target.draw(*p.second);
@@ -67,8 +82,16 @@ namespace ng {
 	// private methods
 	void MainMenuState::_initFont() {
 
-		if (!this->_font.loadFromFile("../fonts/GUMDROP.ttf"))
+		if (!this->_font.loadFromFile("../fonts/RubikMonoOne-Regular.ttf"))
 			throw std::invalid_argument("failed to open the file | MainMenuState::_initFont");
+
+	}
+
+	void MainMenuState::_initTextBox() {
+
+		this->_nicknameInput = new gui::TextBox(30, false);
+		this->_nicknameInput->setPosition(300.f, 500.f);
+		this->_nicknameInput->setFont(this->_font);
 
 	}
 

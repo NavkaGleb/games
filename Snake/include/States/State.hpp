@@ -27,6 +27,8 @@ namespace ng {
 		virtual void updateInput(const sf::Event& event) = 0;
 		virtual void updateMousePosition(const sf::Vector2i& mousePosition) = 0;
 		virtual void updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) = 0;
+		virtual void textEntered(const sf::Event& event) = 0;
+
 		virtual void update(const float& dtime) = 0;
 		virtual void render(sf::RenderTarget& target) = 0;
 
