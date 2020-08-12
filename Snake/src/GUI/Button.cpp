@@ -1,6 +1,7 @@
 #include "Button.hpp"
 
 #include <cmath>
+#include <iostream>
 
 namespace ng::gui {
 
@@ -25,6 +26,7 @@ namespace ng::gui {
 			std::floor(this->_text.getGlobalBounds().left + this->_text.getGlobalBounds().width / 2.f),
 			std::floor(this->_text.getGlobalBounds().top + this->_text.getGlobalBounds().height / 2.f)
 		);
+
 		this->_text.setPosition(
 			std::floor(this->_shape.getPosition().x + this->_shape.getGlobalBounds().width / 2.f),
 			std::floor(this->_shape.getPosition().y + this->_shape.getGlobalBounds().height / 2.f)

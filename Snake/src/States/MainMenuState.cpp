@@ -27,6 +27,8 @@ namespace ng {
 	// public methods
 	void MainMenuState::updateMousePosition(const sf::Vector2i& mousePosition) {
 
+		this->_nicknameInput->update(mousePosition);
+
 		for (const auto& p : this->_buttons)
 			p.second->update(mousePosition);
 
@@ -34,11 +36,19 @@ namespace ng {
 
 	void MainMenuState::keyPressed(const sf::Event& event) {
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-			this->_nicknameInput->active(true);
+		if (!this->_nicknameInput->active()) {
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+
+				std::cout << "set active to input from KEY" << std::endl;
+				this->_nicknameInput->setActive(true);
+
+			}
+
+		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			this->_nicknameInput->active(false);
+			this->_nicknameInput->setActive(false);
 
 	}
 
@@ -54,12 +64,12 @@ namespace ng {
 
 	void MainMenuState::textEntered(const sf::Event& event) {
 
-		this->_nicknameInput->input(event);
+		if (this->_nicknameInput->active())
+			this->_nicknameInput->textEntered(event);
 
 	}
 
 	void MainMenuState::update(const float& dtime) {
-
 
 
 	}
@@ -85,13 +95,25 @@ namespace ng {
 		if (!this->_font.loadFromFile("../fonts/RubikMonoOne-Regular.ttf"))
 			throw std::invalid_argument("failed to open the file | MainMenuState::_initFont");
 
+		std::cout << "!!!!!!!!!!!!!!!!  " << this->_font.getGlyph(102, 30, false).bounds.height << std::endl;
+
 	}
 
 	void MainMenuState::_initTextBox() {
 
-		this->_nicknameInput = new gui::TextBox(30, false);
-		this->_nicknameInput->setPosition(300.f, 500.f);
-		this->_nicknameInput->setFont(this->_font);
+		float width = ng::gui::p2px(50.f, this->_sdata.vm);
+		float height = ng::gui::p2py(7.f, this->_sdata.vm);
+		float x = (static_cast<float>(this->_sdata.vm.width) - width) / 2.f;
+		float y = ng::gui::p2py(10.f, this->_sdata.vm);
+
+		this->_nicknameInput = new gui::TextBox(x, y, width, height, 30, this->_font,
+										  sf::Color(150, 150, 150, 100), gui::TextBox::Alignment::Center);
+//		this->_nicknameInput->setCharacterSize(30);
+//		this->_nicknameInput->setFont(this->_font);
+//		this->_nicknameInput->setBackgroundFillColor(sf::Color(150, 150, 150, 100));
+//		this->_nicknameInput->setPosition(x, y);
+//		this->_nicknameInput->setSize(width, height);
+		this->_nicknameInput->setLimit(13);
 
 	}
 
@@ -104,17 +126,17 @@ namespace ng {
 		float offsety = ng::gui::p2py(10.f, this->_sdata.vm);
 
 		this->_buttons["game"] = new gui::Button(
-			x, y + offsety * 0, width, height, "game", 30, this->_font,
+			x, y + offsety * 1, width, height, "game", 30, this->_font,
 			sf::Color(150, 150, 150, 150), sf::Color(200, 200, 200, 150), sf::Color(255, 255, 255, 150)
 		);
 
 		this->_buttons["leaderboard"] = new gui::Button(
-			x, y + offsety * 1, width, height, "leaderboard", 30, this->_font,
+			x, y + offsety * 2, width, height, "leaderboard", 30, this->_font,
 			sf::Color(150, 150, 150, 150), sf::Color(200, 200, 200, 150), sf::Color(255, 255, 255, 150)
 		);
 
 		this->_buttons["exit"] = new gui::Button(
-			x, y + offsety * 2, width, height, "exit", 30, this->_font,
+			x, y + offsety * 3, width, height, "exit", 30, this->_font,
 			sf::Color(150, 150, 150, 150), sf::Color(200, 200, 200, 150), sf::Color(255, 255, 255, 150)
 		);
 
