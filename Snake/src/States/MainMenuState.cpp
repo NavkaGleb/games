@@ -25,7 +25,14 @@ namespace ng {
 	const bool& MainMenuState::quit() const { return this->_quit; }
 
 	// public methods
-	void MainMenuState::updateInput(const sf::Event& event) {
+	void MainMenuState::updateMousePosition(const sf::Vector2i& mousePosition) {
+
+		for (const auto& p : this->_buttons)
+			p.second->update(mousePosition);
+
+	}
+
+	void MainMenuState::keyPressed(const sf::Event& event) {
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 			this->_nicknameInput->active(true);
@@ -35,14 +42,7 @@ namespace ng {
 
 	}
 
-	void MainMenuState::updateMousePosition(const sf::Vector2i& mousePosition) {
-
-		for (const auto& p : this->_buttons)
-			p.second->update(mousePosition);
-
-	}
-
-	void MainMenuState::updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) {
+	void MainMenuState::mouseButtonPressed(const sf::Event& event, const sf::Vector2i& mousePosition) {
 
 		if (this->_buttons["game"]->isPressed())
 			this->_sdata.states.emplace(new GameState(this->_sdata));

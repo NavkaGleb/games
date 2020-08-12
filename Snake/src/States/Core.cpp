@@ -92,14 +92,14 @@ namespace ng {
 			if (event.type == sf::Event::KeyPressed) {
 
 				if (!this->_states.empty())
-					this->_states.top()->updateInput(event);
+					this->_states.top()->keyPressed(event);
 
 			}
 
 			if (event.type == sf::Event::MouseButtonPressed) {
 
 				if (!this->_states.empty())
-					this->_states.top()->updateMouseClick(event, sf::Mouse::getPosition(*this->_window));
+					this->_states.top()->mouseButtonPressed(event, sf::Mouse::getPosition(*this->_window));
 
 				std::cout << "button pressed!" << std::endl;
 

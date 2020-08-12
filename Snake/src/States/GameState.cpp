@@ -34,7 +34,14 @@ namespace ng {
 	const bool& GameState::quit() const { return this->_quit; }
 
 	// public methods
-	void GameState::updateInput(const sf::Event& event) {
+	void GameState::updateMousePosition(const sf::Vector2i& mousePosition) {
+
+		if (this->_paused)
+			this->_pauseMenu->updateMousePosition(mousePosition);
+
+	}
+
+	void GameState::keyPressed(const sf::Event& event) {
 
 		if (event.key.code == sf::Keyboard::Key::W && this->_keyClock.getTime()) {
 
@@ -60,14 +67,7 @@ namespace ng {
 
 	}
 
-	void GameState::updateMousePosition(const sf::Vector2i& mousePosition) {
-
-		if (this->_paused)
-			this->_pauseMenu->updateMousePosition(mousePosition);
-
-	}
-
-	void GameState::updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) {
+	void GameState::mouseButtonPressed(const sf::Event& event, const sf::Vector2i& mousePosition) {
 
 		if (this->_paused) {
 

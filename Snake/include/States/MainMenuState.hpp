@@ -16,9 +16,10 @@ namespace ng {
 		[[nodiscard]] const bool& quit() const override;
 
 		// public methods
-		void updateInput(const sf::Event& event) override;
 		void updateMousePosition(const sf::Vector2i& mousePosition) override;
-		void updateMouseClick(const sf::Event& event, const sf::Vector2i& mousePosition) override;
+
+		void keyPressed(const sf::Event& event) override;
+		void mouseButtonPressed(const sf::Event& event, const sf::Vector2i& mousePosition) override;
 		void textEntered(const sf::Event& event) override;
 
 		void update(const float& dtime) override;
